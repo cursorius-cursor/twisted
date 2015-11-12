@@ -97,11 +97,7 @@ following example has two methods published via XML-RPC, ``add(a, b)`` and ``ech
 
 
 After we run this command, we can connect with a client and send commands
-to the server:
-
-
-
-
+to the server (Python 2.x):
 
 .. code-block:: pycon
 
@@ -118,9 +114,23 @@ to the server:
     xmlrpclib.Fault: <Fault 123: 'The fault procedure is faulty.'>
     >>>
     
+With Python 3.x do:
 
+.. code-block:: pycon
 
+    import xmlrpc.client
+  
+    with xmlrpc.client.ServerProxy('http://localhost:7080/') as proxy:
+    ...     proxy.echo("lala")
+    ...     proxy.add(1,2)
+    ...     proxy.fault()
+    'lala'
+    3
+    Traceback (most recent call last):
+    ...
 
+    xmlrpc.client.Fault: <Fault 123: 'The fault procedure is faulty.'>
+    >>>
 
 If the :api:`twisted.web.server.Request <Request>` object is
 needed by an ``xmlrpc_*`` method, it can be made available using
